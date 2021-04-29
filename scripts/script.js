@@ -13,15 +13,13 @@ const imageArr = [
 const deckSize = 16;
 const cards = document.querySelectorAll(".memory-card");
 
+const turnsCount = document.getElementById("turns");
+
 class Card {
   constructor(value, image) {
     this.image = image;
     this.value = value;
     this.exposed = false;
-    this.matched = false;
-  }
-  match() {
-    this.matched = !this.matched;
   }
   expose() {
     this.exposed = !this.exposed;

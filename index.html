@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Memory Game</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>Document</title>
   </head>
-
   <body>
+    <div class="score">
+      <div class="player-score">
+        <h2>Turn</h2>
+        <p id="turns">0</p>
+      </div>
+    </div>
+
+    <section class="memory-game">
     <div class="memory-card" id="n0">
       <img class="front-face test" src="images/winking.png" alt="card 0" />
       <img class="back-face" src="images/zero.png" alt="" />
@@ -72,8 +80,8 @@
       <img class="front-face" src="images/seven.png" alt="" />
       <img class="back-face" src="" alt="" />
     </div>
-    </div>
 
-    <script src="scripts/script.js"></script>
-  </body>
+  <button>Play</button>
+  <script src="script/script.js"></script>
+</section>
 </html>
