@@ -1,4 +1,4 @@
-var indexOne, indexTwo, turns, state, deck;
+var indexOne, thisOne, indexTwo, thisTwo, turns, state, deck;
 
 const imageArr = [
   "images/zero.png",
@@ -6,22 +6,19 @@ const imageArr = [
   "images/two.png",
   "images/three.png",
   "images/four.png",
-  "images/five/png",
+  "images/five.png",
   "images/six.png",
   "images/seven.png",
 ];
-
 const deckSize = 16;
+const cards = document.querySelectorAll(".memory-card");
+const turnsCount = document.getElementById("turns");
 
 class Card {
   constructor(value, image) {
     this.image = image;
     this.value = value;
     this.exposed = false;
-    this.matched = false;
-  }
-  match() {
-    this.matched = !this.matched;
   }
   expose() {
     this.exposed = !this.exposed;
@@ -38,37 +35,64 @@ function newGame() {
     deck.push(new Card(i, imageArr[i]));
   }
   deck.sort(() => Math.random() - 0.5);
-  console.log(deck);
+
+  let backs = document.getElementsByClassName("back-face");
+  let fronts = document.getElementsByClassName("front-face");
+  for (let i = 0; i < backs.length; i++) {
+    backs[i].src = deck[i].image;
+    fronts[i].src = "images/winking.png";
+  }
+  play();
 }
 
-// document.querySelector("card").addEventListener('click', function(e){
-//     e.target.innerHTML = e.target.innerHTML.strike();
-//     setTimeout(function(){e.target.remove()}, 1000);
-// });
+function play() {
+  cards.forEach((card) =>
+    card.addEventListener("click", function (e) {
+      e.preventDefault();
+      let index = Number(this.id.slice(1));
 
-function flipCard(index) {
-  if (deck[index].exposed) {
-    return;
-  }
-  if (state === 0) {
-    deck[index].expose();
-    indexOne = index;
-    state = 1;
-  } else if (state === 1) {
-    deck[index].expose();
-    indexTwo = index;
-    state = 0;
-    turns++;
-    if (deck[indexOne].value === deck[indexTwo].value) {
-      deck[indexOne].match();
-      deck[indexTwo].match();
-    } else {
-      setTimeout(function () {
-        deck[indexOne].expose();
-        deck[indexTwo].expose();
-      }, 2000);
-    }
-  } else {
-    console.log("Something fucked up");
-  }
+      if (deck[index].exposed) {
+        return;
+      }
+
+      if (state === 0) {
+        this.classList.toggle("flip");
+        deck[index].expose();
+        indexOne = index;
+        thisOne = this;
+        state = 1;
+      } else if (state === 1) {
+        this.classList.toggle("flip");
+        deck[index].expose();
+        indexTwo = index;
+        thisTwo = this;
+        state = 0;
+        turns++;
+        console.log(turns);
+        if (deck[indexOne].value != deck[indexTwo].value) {
+          setTimeout(function () {
+            deck[indexOne].expose();
+            thisOne.classList.toggle("flip");
+            deck[indexTwo].expose();
+            thisTwo.classList.toggle("flip");
+          }, 600);
+        }
+      } else {
+        console.log("Something fucked up");
+      }
+    })
+  );
 }
+
+function reset() {
+  if(deck) {
+      cards.forEach((card) => {
+        let index = Number(card.id.slice(1));
+        if (deck[index].exposed) {
+          card.classList.toggle("flip");
+        }
+      });
+    };
+  setTimeout(function() {newGame()}, 1000);
+}
+newGame();
