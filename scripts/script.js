@@ -12,6 +12,7 @@ const imageArr = [
 ];
 const deckSize = 16;
 const cards = document.querySelectorAll(".memory-card");
+
 const turnsCount = document.getElementById("turns");
 
 class Card {
@@ -38,61 +39,46 @@ function newGame() {
 
   let backs = document.getElementsByClassName("back-face");
   let fronts = document.getElementsByClassName("front-face");
-  for (let i = 0; i < backs.length; i++) {
+  for(let i=0; i<backs.length; i++) {
     backs[i].src = deck[i].image;
     fronts[i].src = "images/winking.png";
   }
-  play();
 }
 
-function play() {
-  cards.forEach((card) =>
-    card.addEventListener("click", function (e) {
-      e.preventDefault();
-      let index = Number(this.id.slice(1));
-
-      if (deck[index].exposed) {
-        return;
-      }
-
-      if (state === 0) {
-        this.classList.toggle("flip");
-        deck[index].expose();
-        indexOne = index;
-        thisOne = this;
-        state = 1;
-      } else if (state === 1) {
-        this.classList.toggle("flip");
-        deck[index].expose();
-        indexTwo = index;
-        thisTwo = this;
-        state = 0;
-        turns++;
-        console.log(turns);
-        if (deck[indexOne].value != deck[indexTwo].value) {
-          setTimeout(function () {
-            deck[indexOne].expose();
-            thisOne.classList.toggle("flip");
-            deck[indexTwo].expose();
-            thisTwo.classList.toggle("flip");
-          }, 600);
-        }
-      } else {
-        console.log("Something fucked up");
-      }
-    })
-  );
-}
-
-function reset() {
-  if(deck) {
-      cards.forEach((card) => {
-        let index = Number(card.id.slice(1));
-        if (deck[index].exposed) {
-          card.classList.toggle("flip");
-        }
-      });
-    };
-  setTimeout(function() {newGame()}, 1000);
-}
 newGame();
+cards.forEach((card) => card.addEventListener("click", function(e){
+  e.preventDefault();
+  let index = Number(this.id.slice(1));
+
+  if (deck[index].exposed) {
+    return;
+ }
+
+  if (state === 0) {
+    this.classList.toggle("flip");
+    deck[index].expose();
+    indexOne = index;
+    thisOne = this;
+    state = 1;
+  } else if (state === 1) {
+    this.classList.toggle("flip");
+    deck[index].expose();
+    indexTwo = index;
+    thisTwo = this;
+    state = 0;
+    turns++;
+    if (deck[indexOne].value === deck[indexTwo].value) {
+      deck[indexOne].match();
+      deck[indexTwo].match();
+    } else {
+      setTimeout(function () {
+        deck[indexOne].expose();
+        thisOne.classList.toggle("flip");
+        deck[indexTwo].expose();
+        thisTwo.classList.toggle("flip");
+      }, 1000);
+    }
+  } else {
+    console.log("Something fucked up");
+  }
+}));

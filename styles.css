@@ -1,3 +1,4 @@
+
 * {
   padding: 0;
   margin: 0;
@@ -13,7 +14,7 @@ body {
 }
 
 .memory-game {
-  width: 650px;
+  width: 640px;
   height: 640px;
   margin: auto;
   display: flex;
@@ -25,7 +26,7 @@ body {
 .memory-card {
   width: calc(25% - 10px);
   height: calc(33.333% - 10px);
-  margin: 5px;
+  margin: 10px;
   position: relative;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   transform-style: preserve-3d;
@@ -36,10 +37,11 @@ body {
 .back-face {
   width: 100%;
   height: 100%;
-  padding: 1px;
   position: absolute;
-
+  border-radius: 5px;
   background: #de87f5;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .memory-card.flip {
@@ -47,7 +49,9 @@ body {
 }
 
 .front-face {
-  transform: rotateY(180deg);
+    transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+  height: 100%;
 }
 
 button {
@@ -72,3 +76,13 @@ button:hover {
   top: 5rem;
   right: 2rem;
 }
+
+.back-face {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    position: absolute;
+    text-align: center;
+    right: 0;
+    left: 0;
+    color: #20263f;
+  }
