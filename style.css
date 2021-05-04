@@ -4,30 +4,41 @@
   box-sizing: border-box;
 }
 
-/* styles.css */
+/* style.css */
 
 body {
   height: 100vh;
   display: flex;
   background: #cfffe5;
+  font-family: "Original Surfer";
+}
+
+.pageTitle {
+  position: absolute;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  text-shadow: 1px 1px 1px #de87f5,
+             2px 2px 1px #de87f5;
 }
 
 .memory-game {
   width: 650px;
-  height: 640px;
   margin: auto;
   margin-left: 0;
+  margin-top: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
+  flex-grow: 0;
+  flex-shrink: 1;
 }
-
-/* styles.css */
 
 .memory-card {
   width: 120px;
   height: 120px;
-  margin: 10px;
+  margin: 11px;
   background: #de87f5;
   position: relative;
   box-shadow: 3px 4px 5px 0px rgba(0, 0, 0, 0.38);
@@ -79,15 +90,13 @@ button:hover {
 
 .score {
   color: #de87f5;
-  display: flex;
-  /* position: absolute; */
-  left: 21rem;
-  top: 5rem;
-  right: 2rem;
-  margin: 200px 150px auto 150px;
+  display: inline-flex;
+  margin-top: 200px;
   text-align: center;
   justify-content: center;
-  flex-shrink: 2;
+  flex-basis: 400px;
+  flex-grow: 0;
+  flex-shrink: 1;
 }
 
 .player-score{
